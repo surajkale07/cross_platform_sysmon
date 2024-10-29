@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Monitor</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>System Monitor Dashboard</h1>
+    <div id="cpu-chart"></div>
+    <div id="memory-chart"></div>
+
+    <script>
+        // Initial empty traces for CPU and memory
+        const cpuData = [{ y: [], type: 'line', name: 'CPU Usage (%)' }];
+        const memoryData = [{ y: [], type: 'line', name: 'Memory Usage' }];
+
+        // Initial plot setup for CPU and memory charts
+        Plotly.newPlot('cpu-chart', cpuData, { title: 'CPU Usage (%)' });
+        Plotly.newPlot('memory-chart', memoryData, { title: 'Memory Usage (Bytes)' });
+
+        async function updateMetrics() {
+            // Fetch the latest metrics from the server
+            const response = await fetch('/metrics');
+            const data = await response.json();
+
+            // Update CPU chart with new data point
+            Plotly.extendTraces('cpu-chart', { y: [[data.cpu_usage]] }, [0]);
+
+            // Update Memory chart with new data point
+            Plotly.extendTraces('memory-chart', { y: [[data.memory_used]] }, [0]);
+
+            // Limit the number of data points displayed to avoid overloading
+            const maxPoints = 60; // Show only the last 60 points
+            Plotly.relayout('cpu-chart', { 'xaxis.range': [Math.max(0, cpuData[0].y.length - maxPoints), cpuData[0].y.length] });
+            Plotly.relayout('memory-chart', { 'xaxis.range': [Math.max(0, memoryData[0].y.length - maxPoints), memoryData[0].y.length] });
+        }
+
+        // Set interval to update metrics every 5 seconds without reloading
+        setInterval(updateMetrics, 5000);
+    </script>
+</body>
+</html>
