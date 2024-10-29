@@ -1,19 +1,22 @@
-System Monitor Dashboard
+# System Monitor Dashboard
 A real-time, cross-platform system monitoring tool built with Rust, Actix-Web, and Plotly.js, designed for Linux, macOS, and Windows. This tool tracks CPU, memory, network, and disk I/O usage and visualizes these metrics on an interactive dashboard with automatic updates every 5 seconds. Ideal for developers and system administrators looking for a low-overhead, resource-efficient monitoring solution.
 
-Features
+# Features
+
 Real-Time Monitoring: Live tracking of CPU, memory, network, and disk I/O usage.
 Cross-Platform: Works seamlessly on Linux, macOS, and Windows.
 Low Overhead: Minimal resource usage with Rust and direct system API calls.
 Dynamic Updates: Refreshes charts every 5 seconds without reloading the page.
 Customizable Alerts: Set alert thresholds for CPU and memory usage.
 Extendable: Add more system metrics or customize visualizations easily.
-Technologies Used
+
+# Technologies Used
 Rust: For the backend server and system metrics gathering.
 Actix-Web: Serves the API for metric data.
 Plotly.js: For interactive and real-time charting on the web.
 JavaScript: To handle chart updates with data from the server.
-Getting Started
+
+# Getting Started
 Follow these instructions to set up the project on your local machine.
 
 Prerequisites
